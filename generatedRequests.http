@@ -1,0 +1,83 @@
+### Client:
+### просмотр всех счетов по id клиента
+GET http://localhost:8085/v1/bank/client/accounts/d733dc7e-30d6-41eb-8aca-0aa670e318d9
+
+### внесение денег на конкретный счет клиента
+POST http://localhost:8085/v1/bank/client/depositMoneyToAccount
+Content-Type: application/json
+
+{
+  "id": "cff31aa3-f4b6-4bf8-b2fa-431402f8ebd8",
+  "bankConfirmationStatus": true,
+  "amount": 12
+}
+
+### получение баланса определенного счета по id счета
+GET http://localhost:8085/v1/bank/client/balance/cff31aa3-f4b6-4bf8-b2fa-431402f8ebd8
+
+### получение баланса определенного счета по id счета
+GET http://localhost:8085/v1/bank/client/balance/d733dc7e-55d6-41eb-8aca-0aa670e318d5
+
+### перевод средств с одного счета на другой, разных клиентов в одной валюте
+POST http://localhost:8085/v1/bank/client/transferCurrency
+Content-Type: application/json
+
+{
+  "fromAmountID": "b444c47c-ed6d-4b77-b40d-29019349496a",
+  "toAmountID": "cff31aa3-f4b6-4bf8-b2fa-431402f8ebd8",
+  "fromCurrency": "RUB",
+  "toCurrency": "RUB",
+  "amount": 10
+}
+
+### перевод средств с одного счета на другой, разных клиентов в разных валютах
+POST http://localhost:8085/v1/bank/client/transferCurrency
+Content-Type: application/json
+
+{
+  "fromAmountID": "d733dc7e-55d6-41eb-8aca-0aa670e318d5",
+  "toAmountID": "97aa75ab-ff34-437c-b0bc-1b0b72f2b45b",
+  "fromCurrency": "EUR",
+  "toCurrency": "USD",
+  "amount": 500
+}
+
+### получение списка переводов по id счета
+GET http://localhost:8085/v1/bank/client/operation/d733dc7e-55d6-41eb-8aca-0aa670e318d5
+
+### Admin:
+### создание нового клиента
+POST http://localhost:8085/v1/bank/admin/newClient
+Content-Type: application/json
+
+{
+  "firstName": "Петя",
+  "lastName": "Михаильченко",
+  "phoneNumber": "+7-9672115269",
+  "email": "test@mail.ru"
+}
+
+### измененение данных клиента
+PATCH http://localhost:8085/v1/bank/admin/update
+Content-Type: application/json
+
+{
+  "id": "d733dc7e-30d6-41eb-8aca-0aa670e318d9",
+  "firstName": "Евгений",
+  "lastName": "Буянов",
+  "phoneNumber": "+7-9672016269",
+  "email": "test@mail.ru"
+}
+
+### вывод данных клиента
+GET http://localhost:8085/v1/bank/admin/dataClient/48e59b03-1c53-4a13-a42b-462c2a2652df
+
+### открыть счет
+POST http://localhost:8085/v1/bank/admin/openAccount
+Content-Type: application/json
+
+{
+  "id": "48e59b03-1c53-4a13-a42b-462c2a2652df",
+  "currency": "RUB",
+  "status": true
+}
